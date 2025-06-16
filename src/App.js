@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import HomePage from './pages/HomePage';
+import CollegePage from './pages/CollegePage';
+import ReviewPage from './pages/ReviewPage';
+import AboutPage from './pages/AboutPage';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+  const [currentPage, setCurrentPage] = useState('home');
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'colleges': return <CollegePage currentPage={currentPage} setCurrentPage={setCurrentPage} />;
+      case 'reviews': return <ReviewPage currentPage={currentPage} setCurrentPage={setCurrentPage} />;
+      case 'about': return <AboutPage currentPage={currentPage} setCurrentPage={setCurrentPage} />;
+      default: return <HomePage currentPage={currentPage} setCurrentPage={setCurrentPage} />;
+    }
+  };
+
+  return renderPage();
 }
-
-export default App;
