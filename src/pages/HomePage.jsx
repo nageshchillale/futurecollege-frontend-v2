@@ -1,39 +1,51 @@
 import React from 'react';
 import Navigation from '../components/Navigation';
+import Footer from '../components/Footer';
+import { useNavigate } from 'react-router-dom'; // 🟢 Add this
 import { ArrowRight, Search, BookOpen, Users, GraduationCap, Star, TrendingUp } from 'lucide-react';
 
 export default function HomePage({ currentPage, setCurrentPage }) {
-  return (
+  const navigate = useNavigate(); // 🟢 Hook to programmatically navigate
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      navigate('/prediction'); // ✅ Go to prediction page
+    } else {
+      navigate('/login'); // 🚪 Go to login/signup
+    }
+  };
+
+   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
-
-      {/* Hero Section */}
       <main className="flex items-center justify-between px-8 py-16 max-w-7xl mx-auto">
-        <div className="flex-1 max-w-2xl">
-          <h1 className="text-6xl font-bold text-gray-900 leading-tight mb-6">
-            Find Your Best-Fit<br />
-            <span className="text-gray-800">Engineering College</span>
-          </h1>
+  <div className="flex-1 max-w-2xl relative">
+    <h1 className="text-6xl font-bold text-gray-900 leading-tight mb-6">
+      Find Your Best-Fit<br />
+      <span className="text-gray-800">Engineering College</span>
+    </h1>
 
-          <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-            Effortlessly predict which colleges you can get into for Direct Second Year Engineering 
-            based on your diploma percentage, category, and preferences. No complex filters - 
-            just fast, accurate, and personalized results.
-          </p>
+    <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+      Effortlessly predict which colleges you can get into for Direct Second Year Engineering 
+      based on your diploma percentage, category, and preferences. No complex filters - 
+      just fast, accurate, and personalized results.
+    </p>
 
-          <div className="flex space-x-4">
-            <button 
-              onClick={() => setCurrentPage('colleges')}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center space-x-2"
-            >
-              <span>LET'S GO</span>
-              <ArrowRight className="w-5 h-5" />
-            </button>
-          </div>
+    <form onSubmit={handleSubmit}>
+      <button 
+        type="submit"
+        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-full flex items-center space-x-2 transition-all duration-300 shadow-lg hover:shadow-xl"
+      >
+        <span>LET’S GO</span>
+        <ArrowRight className="w-5 h-5" />
+      </button>
+    </form>
 
-          {/* Decorative Element */}
-          <div className="absolute top-1/2 left-1/3 w-6 h-6 bg-cyan-400 rounded-full animate-bounce"></div>
-        </div>
+    {/* ✅ Moved inside the same div */}
+    <div className="absolute top-1/2 left-1/3 w-6 h-6 bg-cyan-400 rounded-full animate-bounce"></div>
+  </div>
 
         {/* Right Illustration */}
         <div className="flex-1 relative">
@@ -54,7 +66,6 @@ export default function HomePage({ currentPage, setCurrentPage }) {
                     </div>
                   </div>
                 </div>
-
                 <div className="absolute -top-8 -left-4 w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center shadow-lg floating-element">
                   <GraduationCap className="w-6 h-6 text-white" />
                 </div>
@@ -147,6 +158,8 @@ export default function HomePage({ currentPage, setCurrentPage }) {
           }
         `}
       </style>
+
+      <Footer /> {/* ✅ Footer placed at the bottom */}
     </div>
   );
 }
