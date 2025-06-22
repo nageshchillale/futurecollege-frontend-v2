@@ -1,7 +1,9 @@
 import React from 'react';
 import Navigation from '../components/Navigation';
+import { useNavigate } from 'react-router-dom';
 
-export default function ReviewPage({ currentPage, setCurrentPage }) {
+export default function AboutPage() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gray-50">
       
@@ -13,12 +15,14 @@ export default function ReviewPage({ currentPage, setCurrentPage }) {
             We're working on bringing you authentic reviews from students and alumni. 
             This feature will be available soon.
           </p>
-          <button 
-            onClick={() => setCurrentPage('home')}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-          >
-            Back to Home
-          </button>
+          <div className="text-center">
+              <button 
+                onClick={() => navigate('/')}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors"
+              >
+                Back to Home
+              </button>
+            </div>
         </div>
       </div>
     </div>
