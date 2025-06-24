@@ -1,9 +1,9 @@
-import axios from 'axios';
+const api = {
+  login: (email, password) =>
+    axios.post(`${BASE_URL}/auth/login`, { email, password }),
 
-const BASE_URL = process.env.REACT_APP_API;
+  signup: (userData) =>
+    axios.post(`${BASE_URL}/auth/signup`, userData)
+};
 
-// Correct: add `/auth/login` to the `/api` base URL
-axios.post(`${BASE_URL}/auth/login`, {
-  email: 'user@example.com',
-  password: 'secret123'
-});
+export default api;
