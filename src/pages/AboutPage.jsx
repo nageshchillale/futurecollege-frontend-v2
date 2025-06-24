@@ -7,13 +7,16 @@ export default function AboutPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gray-50">
-     
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* Top Navigation */}
+      <Navigation />
 
-      <div className="max-w-4xl mx-auto px-8 py-12">
+      {/* Content */}
+      <div className="flex-grow max-w-4xl mx-auto px-8 py-12">
         <h1 className="text-4xl font-bold text-center text-blue-700 mb-12">
           About <span className="text-black">FutureCollege.com</span>
         </h1>
+
         <div className="bg-white rounded-lg shadow-lg p-8">
           <div className="prose max-w-none">
             {/* Intro */}
@@ -54,6 +57,7 @@ export default function AboutPage() {
               <li>💊 Pharmacy and Allied Health Sciences counseling</li>
               <li>📚 Career guidance tools, personality assessments, and more</li>
             </ul>
+
             <p className="text-gray-700 mb-6">
               Our vision is to become India’s most student-centric, intelligent, and reliable 
               platform for college admissions and career planning.
@@ -71,7 +75,9 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
-      <Footer /> {/* ✅ Footer placed at the bottom */}
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
