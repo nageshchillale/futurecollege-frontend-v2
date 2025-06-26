@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import api from '../api'; // ✅ Updated import
+import api from '../api'; // ✅ Uses custom API methods
 import { useNavigate } from 'react-router-dom';
 import { GraduationCap, Target, Search, BookOpen, Users, Award, TrendingUp, Calendar } from 'lucide-react';
 import Footer from '../components/Footer';
@@ -32,7 +32,7 @@ export default function PredictionPage() {
   useEffect(() => {
     const fetchBranches = async () => {
       try {
-        const response = await api.get('/cutoffs/branches'); // ✅ Updated
+        const response = await api.getBranches(); // ✅ FIXED
         setBranches(response.data);
       } catch (err) {
         console.error('Error fetching branches:', err);
@@ -46,36 +46,39 @@ export default function PredictionPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setResults([]);
-    setLoading(true);
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError('');
+  setResults([]);
+  setLoading(true);
 
-    try {
-      const response = await api.get('/cutoffs/predict', {
-        params: {
-          category: formData.category,
-          branch: formData.branch,
-          percent: formData.percentage,
-          gender: formData.gender,
-          tolerance: formData.tolerance,
-        },
-      }); // ✅ Updated
+  console.log('API BASE URL:', process.env.REACT_APP_API); // ✅ Log inside submit
 
-      setResults(response.data);
-    } catch (err) {
-      if (err.response?.status === 400) {
-        setError(err.response.data);
-      } else if (err.response?.status === 204) {
-        setError('No colleges found for the given inputs.');
-      } else {
-        setError('An unexpected error occurred.');
-      }
-    } finally {
-      setLoading(false);
+  try {
+    const token = localStorage.getItem('token');
+    const response = await api.predict({
+      category: formData.category,
+      branch: formData.branch,
+      percent: formData.percentage,
+      gender: formData.gender,
+      tolerance: formData.tolerance,
+    }, token);
+
+    setResults(response.data);
+  } catch (err) {
+    if (err.response?.status === 400) {
+      setError(err.response.data);
+    } else if (err.response?.status === 204) {
+      setError('No colleges found for the given inputs.');
+    } else {
+      console.error('API Error:', err);
+      setError('An unexpected error occurred.');
     }
-  };
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const categories = [
     { value: 'OPEN', label: 'General (OPEN)' },
@@ -309,3 +312,4 @@ export default function PredictionPage() {
     </div>
   );
 }
+console.log('API BASE URL:', process.env.REACT_APP_API);

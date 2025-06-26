@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../api'; // adjust the path if needed
+import api from '../api'; // ✅ Correct API import
 import { useNavigate } from 'react-router-dom';
 import {
   Eye, EyeOff, BookOpen, Users, Award, TrendingUp, Mail, Lock, User, ArrowRight,
@@ -17,14 +17,14 @@ const AuthPages = () => {
     confirmPassword: ''
   });
 
-  const navigate = useNavigate(); // ✅ Moved here to fix runtime error
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       if (isSignUp) {
-        const res = await api.post('/auth/register', {
+        const res = await api.signup({
           name: formData.name,
           email: formData.email,
           password: formData.password,
@@ -32,14 +32,11 @@ const AuthPages = () => {
         alert(res.data);
         setIsSignUp(false);
       } else {
-        const res = await api.post('/auth/login', {
-          email: formData.email,
-          password: formData.password,
-        });
+        const res = await api.login(formData.email, formData.password);
         const token = res.data.token;
         localStorage.setItem('token', token);
         alert("✅ Login successful!");
-        navigate('/prediction'); // ✅ useNavigate instead of window.location
+        navigate('/prediction');
       }
     } catch (err) {
       alert("❌ Error: " + (err.response?.data || err.message));
@@ -61,13 +58,13 @@ const AuthPages = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 relative overflow-hidden">
-      {/* Floating Elements */}
+      {/* Floating Icons */}
       <FloatingIcon Icon={GraduationCap} className="top-20 left-10" bgColor="bg-blue-500" delay={0} />
       <FloatingIcon Icon={BookOpen} className="top-32 right-20" bgColor="bg-green-500" delay={1} />
       <FloatingIcon Icon={Award} className="bottom-32 left-20" bgColor="bg-purple-500" delay={2} />
       <FloatingIcon Icon={Target} className="bottom-20 right-10" bgColor="bg-pink-500" delay={0.5} />
 
-      {/* Animated SVG Lines */}
+      {/* Background SVG Lines */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
         <defs>
           <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -79,7 +76,7 @@ const AuthPages = () => {
         <path d="M 200 300 Q 400 250 600 280 T 1000 250" stroke="url(#lineGradient)" strokeWidth="2" fill="none" className="animate-pulse" style={{ animationDelay: '1s' }} />
       </svg>
 
-      {/* Centered Form */}
+      {/* Form Section */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 flex justify-center items-center min-h-[calc(100vh-80px)]">
         <div className="w-full max-w-md mx-auto">
           <div className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100">
@@ -92,7 +89,6 @@ const AuthPages = () => {
               </p>
             </div>
 
-            {/* ✅ Wrapped in form */}
             <form onSubmit={handleSubmit} className="space-y-6">
               {isSignUp && (
                 <div className="relative">

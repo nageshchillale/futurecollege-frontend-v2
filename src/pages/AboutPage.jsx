@@ -1,5 +1,5 @@
 import React from 'react';
-import Navigation from '../components/Navigation';
+//import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,8 +8,7 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Top Navigation */}
-      <Navigation />
+      
 
       {/* Content */}
       <div className="flex-grow max-w-4xl mx-auto px-8 py-12">

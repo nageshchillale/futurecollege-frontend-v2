@@ -1,6 +1,6 @@
 import React from 'react';
-import Navigation from '../components/Navigation';
-import Footer from '../components/Footer'; // ✅ added Footer
+// import Navigation from '../components/Navigation'; ❌ Removed this line
+import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
 
 export default function AboutPage() {
@@ -8,9 +8,6 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Navigation */}
-      <Navigation />
-
       {/* Main Content */}
       <div className="flex-grow max-w-7xl mx-auto px-8 py-12">
         <h1 className="text-4xl font-bold text-center mb-12">Student Reviews</h1>
