@@ -37,7 +37,8 @@ export default function CollegePage() {
       setSelectedInstituteName(null); // Reset selected institute when year changes
 
       try {
-        const response = await fetch(`http://localhost:8080/api/cutoffs/${selectedYear}`);
+       const response = await fetch(`${process.env.REACT_APP_API}/api/cutoffs/${selectedYear}`);
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
