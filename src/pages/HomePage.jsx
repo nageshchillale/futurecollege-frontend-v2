@@ -1,5 +1,4 @@
 import React from 'react';
-import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom'; // 🟢 Add this
 import { ArrowRight, Search, BookOpen, Users, GraduationCap, Star, TrendingUp } from 'lucide-react';

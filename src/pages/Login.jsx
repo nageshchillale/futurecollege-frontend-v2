@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import api from '../api'; // ✅ Correct API import
 import { useNavigate } from 'react-router-dom';
 import {
-  Eye, EyeOff, BookOpen, Users, Award, TrendingUp, Mail, Lock, User, ArrowRight,
-  GraduationCap, Search, Target
+  Eye, EyeOff, BookOpen,Award, Mail, Lock, User, ArrowRight,
+  GraduationCap,  Target
 } from 'lucide-react';
 
 const AuthPages = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { Mail, Phone, MapPin, ArrowUp } from 'lucide-react';
 import { Link } from 'react-router-dom'; // ✅ Import Link
 

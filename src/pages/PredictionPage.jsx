@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api'; // ✅ Uses custom API methods
 import { useNavigate } from 'react-router-dom';
-import { GraduationCap, Target, Search, BookOpen, Users, Award, TrendingUp, Calendar } from 'lucide-react';
+import {  Search, Users, Award, TrendingUp, Calendar } from 'lucide-react';
 import Footer from '../components/Footer';
 
 export default function PredictionPage() {
