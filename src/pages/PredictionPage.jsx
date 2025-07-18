@@ -26,7 +26,7 @@ export default function PredictionPage() {
     if (!token) {
       navigate('/login');
     }
-  }, []);
+  }, [navigate]);
 
   // Fetch branch list
   useEffect(() => {
