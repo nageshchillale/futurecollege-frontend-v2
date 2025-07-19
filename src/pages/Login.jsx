@@ -19,29 +19,43 @@ const AuthPages = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      if (isSignUp) {
-        const res = await api.signup({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-        });
-        alert(res.data);
-        setIsSignUp(false);
-      } else {
-        const res = await api.login(formData.email, formData.password);
-        const token = res.data.token;
-        localStorage.setItem('token', token);
-        alert("✅ Login successful!");
-        navigate('/prediction');
-      }
-    } catch (err) {
-      alert("❌ Error: " + (err.response?.data || err.message));
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(formData.email)) {
+    alert("❌ Please enter a valid email address.");
+    return;
+  }
+
+  // Password confirmation (only for Sign Up)
+  if (isSignUp && formData.password !== formData.confirmPassword) {
+    alert("❌ Passwords do not match.");
+    return;
+  }
+
+  try {
+    if (isSignUp) {
+      const res = await api.signup({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      });
+      alert(res.data);
+      setIsSignUp(false);
+    } else {
+      const res = await api.login(formData.email, formData.password);
+      const token = res.data.token;
+      localStorage.setItem('token', token);
+      alert("✅ Login successful!");
+      navigate('/prediction');
     }
-  };
+  } catch (err) {
+    alert("❌ Error: " + (err.response?.data || err.message));
+  }
+};
+
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
